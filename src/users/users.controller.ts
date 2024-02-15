@@ -10,7 +10,7 @@ export class UsersController {
     @Get()
     findAll() {
         const records = this.usersService.findAll();
-        return records
+        return records;
     }
 
     @Get(':id')

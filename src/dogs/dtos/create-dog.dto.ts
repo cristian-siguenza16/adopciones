@@ -1,8 +1,8 @@
 import { IsEnum, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
 
 export enum allowedGender{
-    Macho,
-    Hembra,
+    Macho = "Macho",
+    Hembra = "Hembra",
 }
 
 class CreateDogDto {
@@ -13,16 +13,16 @@ class CreateDogDto {
     @IsString()
     @MinLength(1)
     @MaxLength(255)
-    name: string;
+    nombre: string;
 
-    @IsNumber()
-    edad: number;
+    @IsString()
+    edad: string;
 
-    @IsNumber()
-    peso: number;
+    @IsString()
+    peso: string;
 
     @IsEnum(allowedGender)
-    genero: string;
+    genero: allowedGender;
 }
 
 export default CreateDogDto;

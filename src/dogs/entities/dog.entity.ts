@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { allowedGender } from "../dtos/create-dog.dto";
 
 @ Entity('dogs')
 class Dog{
@@ -11,14 +12,14 @@ class Dog{
     @Column({ type: 'varchar', length: 255 })
     nombre: string;
 
-    @Column({ type: 'number'})
-    edad: number;
+    @Column({ type: 'varchar', length: 255 })
+    edad: string;
 
-    @Column({ type: 'number'})
-    peso: number;
+    @Column({ type: 'varchar', length: 255 })
+    peso: string;
 
-    @Column({ type: 'enum', length: 255 })
-    genero: string;
+    @Column({ type: 'enum', enum: allowedGender})
+    genero: allowedGender;
 }
 
 export default Dog;
