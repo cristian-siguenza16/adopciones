@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { allowedGender } from "../dtos/create-dog.dto";
+import User from "src/users/entities/user.entity";
 
 @ Entity('dogs')
 class Dog{
@@ -20,6 +21,9 @@ class Dog{
 
     @Column({ type: 'enum', enum: allowedGender})
     genero: allowedGender;
+
+    @ManyToOne(() => User, (user) => user.dogs)
+    user: User;
 }
 
 export default Dog;
