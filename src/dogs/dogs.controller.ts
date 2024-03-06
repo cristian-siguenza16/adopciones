@@ -1,7 +1,9 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { DogsService } from './dogs.service';
 import CreateDogDto from './dtos/create-dog.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('dogs')
 @Controller('dogs')
 export class DogsController {
     constructor(private readonly dogsService: DogsService) {}

@@ -1,18 +1,32 @@
-import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { DogsModule } from './dogs/dogs.module';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './users/users.module';
+import * as Joi from '@hapi/joi';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env.local',
+      validationSchema: Joi.object({
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.number().default(5432),
+        DB_NAME: Joi.string().required(),
+        DB_USER: Joi.string().required(),
+        DB_PASS: Joi.string().required(),
+        MESSAGE: Joi.string().required(),
+      })
+    }),
+    TypeOrmModule.forRoot({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'url',
-    password: 'url.2024',
-    database: 'url2024',
+    host: process.env.DB_HOST,
+    port: +process.env.DB_PORT,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
     autoLoadEntities: true,
     synchronize: false,
   }), 
