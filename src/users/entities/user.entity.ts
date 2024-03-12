@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Role from "./role.entity";
 import Dog from "src/dogs/entities/dog.entity";
 import { ApiProperty } from "@nestjs/swagger";
+import * as bcrypt from 'bcrypt';
 
 @Entity('users')
 class User{
@@ -32,6 +33,16 @@ class User{
 
     @OneToMany(() => Dog, (dog) => dog.user)
     dogs: Dog[];
+
+    @Column({ type: 'varchar', default: '' })
+    password: string;
+
+    @BeforeInsert()
+    async hashPassword(){
+        const saltOrRounds = 10;
+        const hash = await bcrypt.hash(this.password, saltOrRounds);
+        this.password = hash;
+    }
 }
 
 export default User;

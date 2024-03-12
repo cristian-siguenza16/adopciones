@@ -5,7 +5,10 @@ import { DogsModule } from './dogs/dogs.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
 import * as Joi from '@hapi/joi';
+import { RolesController } from './users/roles/roles.controller';
 
 @Module({
   imports: [
@@ -30,7 +33,7 @@ import * as Joi from '@hapi/joi';
     autoLoadEntities: true,
     synchronize: false,
   }), 
-    UsersModule, DogsModule],
+    UsersModule, DogsModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
