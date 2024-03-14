@@ -5,10 +5,8 @@ import { DogsModule } from './dogs/dogs.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
-import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import * as Joi from '@hapi/joi';
-import { RolesController } from './users/roles/roles.controller';
 
 @Module({
   imports: [
@@ -21,6 +19,7 @@ import { RolesController } from './users/roles/roles.controller';
         DB_USER: Joi.string().required(),
         DB_PASS: Joi.string().required(),
         MESSAGE: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
       })
     }),
     TypeOrmModule.forRoot({
